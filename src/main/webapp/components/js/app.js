@@ -8,9 +8,8 @@ app.factory('myFactory', function($http, $q) {
 	 */
 
 	var customers = $q.defer();
-	$http.get('http://localhost:8080/hello/angulartest/getuser').then(
+	$http.get('/hello/angulartest/getuser').then(
 			function(response) {
-				alert(JSON.stringify(response.data));
 				customers.resolve(response.data);
 			}, function(response) {
 				alert("error");
@@ -29,7 +28,6 @@ app.factory('myFactory', function($http, $q) {
 app.controller('MyController', function($scope, myFactory) {
 	var myCustomersPromise = myFactory.getCustomers();
 	myCustomersPromise.then(function(value) { // this is only run after $http completes
-		alert('controller - myCustomersPromise');
 		$scope.customers = value;
 	}, function(reason) {
 		alert('promise reasson');
